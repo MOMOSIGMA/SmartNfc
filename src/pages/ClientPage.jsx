@@ -1,4 +1,4 @@
-// Page client - Design unique et professionnel par client
+// Page client - Design moderne et lumineux
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getClientBySlug, getAllClients } from '../services/supabase';
@@ -32,60 +32,60 @@ export default function ClientPage() {
     return (
       <main style={{padding:'5rem 2rem', textAlign:'center'}}>
         <h1>Client non trouvé 😕</h1>
-        <p style={{color:'rgba(255,255,255,0.7)', marginBottom:'2rem'}}>Retour à la liste des clients</p>
+        <p style={{color:'#666', marginBottom:'2rem'}}>Retour à la liste des clients</p>
         <a href="/clients" className="btn-main">Voir tous les clients</a>
       </main>
     );
   }
 
   return (
-    <main style={{margin:0, padding:0}}>
-      {/* Header avec couleur du client */}
+    <main style={{margin:0, padding:0, background:'#F8F9FA', minHeight:'100vh'}}>
+      {/* Header band avec gradient du client */}
       <div
         style={{
           background:`linear-gradient(135deg, ${client.couleur_primaire} 0%, ${client.couleur_secondaire} 100%)`,
-          padding:'3rem 2rem 2rem',
-          color:'var(--noir)'
+          padding:'4rem 2rem 2rem',
+          textAlign:'center',
+          position:'relative',
+          overflow:'hidden'
         }}
       >
-        <div style={{maxWidth:'800px', margin:'0 auto', textAlign:'center'}}>
-          {/* Logo */}
-          <div style={{marginBottom:'1.5rem'}}>
-            <img
-              src={client.logo_url}
-              alt={client.nom}
-              style={{
-                width:'140px',
-                height:'140px',
-                borderRadius:'20px',
-                objectFit:'cover',
-                border:'4px solid rgba(255,255,255,0.3)',
-                boxShadow:'0 8px 32px rgba(0,0,0,0.2)'
-              }}
-            />
-          </div>
-          
-          {/* Nom */}
-          <h1 style={{fontSize:'2.5rem', margin:'0.5rem 0', fontWeight:'800', color:'var(--noir)'}}>
-            {client.nom}
-          </h1>
-
-          {/* Description */}
-          <p style={{fontSize:'1.1rem', margin:'0.8rem 0 0', color:'rgba(0,0,0,0.8)', fontStyle:'italic'}}>
-            {client.description}
-          </p>
+        {/* Logo - flottant au-dessus du gradient */}
+        <div style={{marginBottom:'1rem', zIndex:10, position:'relative'}}>
+          <img
+            src={client.logo_url}
+            alt={client.nom}
+            style={{
+              width:'120px',
+              height:'120px',
+              borderRadius:'20px',
+              objectFit:'cover',
+              border:'5px solid white',
+              boxShadow:'0 8px 24px rgba(0,0,0,0.25)',
+              display:'block',
+              margin:'0 auto'
+            }}
+          />
         </div>
+
+        {/* Infos dans le band */}
+        <h1 style={{fontSize:'2.2rem', margin:'1rem 0 0.5rem', fontWeight:'800', color:'white', textShadow:'0 2px 4px rgba(0,0,0,0.2)'}}>
+          {client.nom}
+        </h1>
+        <p style={{fontSize:'1rem', margin:'0', color:'rgba(255,255,255,0.95)', fontStyle:'italic', textShadow:'0 1px 2px rgba(0,0,0,0.1)'}}>
+          {client.description}
+        </p>
       </div>
 
       {/* Contenu principal */}
-      <div style={{maxWidth:'800px', margin:'0 auto', padding:'3rem 2rem'}}>
+      <div style={{maxWidth:'700px', margin:'0 auto', padding:'2rem'}}>
         
-        {/* Section Contact - Les gros boutons */}
-        <section style={{marginBottom:'3rem'}}>
-          <h2 style={{fontSize:'1.4rem', marginBottom:'1.5rem', textAlign:'center', color:'var(--blanc)'}}>
-            Nous Contacter
+        {/* Section Contact - Boutons principaux */}
+        <section style={{marginBottom:'2rem'}}>
+          <h2 style={{fontSize:'1.3rem', marginBottom:'1.5rem', textAlign:'center', color:'#1a1a1a', fontWeight:'700'}}>
+            📞 Nos moyens de contact
           </h2>
-          <div style={{display:'flex', flexDirection:'column', gap:'0.8rem'}}>
+          <div style={{display:'flex', flexDirection:'column', gap:'1rem'}}>
             {/* WhatsApp */}
             <a
               href={`https://wa.me/${client.whatsapp}`}
@@ -93,26 +93,28 @@ export default function ClientPage() {
               rel="noopener noreferrer"
               style={{
                 background:client.couleur_primaire,
-                color:'var(--noir)',
-                padding:'1.2rem',
+                color:'white',
+                padding:'1.2rem 1.5rem',
                 borderRadius:'12px',
                 textAlign:'center',
-                fontSize:'1.1rem',
+                fontSize:'1rem',
                 fontWeight:'700',
                 textDecoration:'none',
                 transition:'all 0.3s ease',
-                boxShadow:`0 4px 15px ${client.couleur_primaire}66`
+                boxShadow:`0 4px 12px ${client.couleur_primaire}40`,
+                border:'none',
+                cursor:'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px)';
-                e.currentTarget.style.boxShadow = `0 8px 25px ${client.couleur_primaire}88`;
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = `0 8px 20px ${client.couleur_primaire}60`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = `0 4px 15px ${client.couleur_primaire}66`;
+                e.currentTarget.style.boxShadow = `0 4px 12px ${client.couleur_primaire}40`;
               }}
             >
-              💬 Nous envoyer un message WhatsApp
+              💬 WhatsApp
             </a>
 
             {/* Appeler */}
@@ -120,26 +122,28 @@ export default function ClientPage() {
               href={`tel:+${client.phone}`}
               style={{
                 background:client.couleur_secondaire,
-                color:'var(--noir)',
-                padding:'1.2rem',
+                color:'white',
+                padding:'1.2rem 1.5rem',
                 borderRadius:'12px',
                 textAlign:'center',
-                fontSize:'1.1rem',
+                fontSize:'1rem',
                 fontWeight:'700',
                 textDecoration:'none',
                 transition:'all 0.3s ease',
-                boxShadow:`0 4px 15px ${client.couleur_secondaire}66`
+                boxShadow:`0 4px 12px ${client.couleur_secondaire}40`,
+                border:'none',
+                cursor:'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px)';
-                e.currentTarget.style.boxShadow = `0 8px 25px ${client.couleur_secondaire}88`;
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = `0 8px 20px ${client.couleur_secondaire}60`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = `0 4px 15px ${client.couleur_secondaire}66`;
+                e.currentTarget.style.boxShadow = `0 4px 12px ${client.couleur_secondaire}40`;
               }}
             >
-              📞 Appeler directement
+              📞 Appeler
             </a>
 
             {/* Localisation */}
@@ -148,35 +152,37 @@ export default function ClientPage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background:'var(--bleu-neon)',
-                color:'var(--noir)',
-                padding:'1.2rem',
+                background:'#00AEEF',
+                color:'white',
+                padding:'1.2rem 1.5rem',
                 borderRadius:'12px',
                 textAlign:'center',
-                fontSize:'1.1rem',
+                fontSize:'1rem',
                 fontWeight:'700',
                 textDecoration:'none',
                 transition:'all 0.3s ease',
-                boxShadow:`0 4px 15px var(--bleu-neon)66`
+                boxShadow:'0 4px 12px rgba(0, 174, 239, 0.4)',
+                border:'none',
+                cursor:'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px)';
-                e.currentTarget.style.boxShadow = `0 8px 25px var(--bleu-neon)88`;
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 174, 239, 0.6)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = `0 4px 15px var(--bleu-neon)66`;
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 174, 239, 0.4)';
               }}
             >
-              📍 Notre localisation sur Google Maps
+              📍 Notre localisation
             </a>
           </div>
         </section>
 
         {/* Section Réseaux sociaux */}
-        <section style={{marginBottom:'3rem'}}>
-          <h2 style={{fontSize:'1.2rem', marginBottom:'1.5rem', textAlign:'center', color:'var(--blanc)'}}>
-            Nous suivre
+        <section style={{marginBottom:'2rem', background:'white', padding:'1.5rem', borderRadius:'12px', boxShadow:'0 2px 8px rgba(0,0,0,0.08)'}}>
+          <h2 style={{fontSize:'1.1rem', marginBottom:'1.2rem', textAlign:'center', color:'#1a1a1a', fontWeight:'700'}}>
+            Nous suivre sur les réseaux
           </h2>
           <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem'}}>
             <a
@@ -184,22 +190,24 @@ export default function ClientPage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background:`linear-gradient(135deg, ${client.couleur_primaire}33, ${client.couleur_secondaire}33)`,
+                background:`linear-gradient(135deg, ${client.couleur_primaire}15, ${client.couleur_secondaire}15)`,
                 border:`2px solid ${client.couleur_primaire}`,
                 padding:'1rem',
                 borderRadius:'10px',
                 textAlign:'center',
                 textDecoration:'none',
-                color:'var(--blanc)',
-                fontSize:'1rem',
+                color:'#1a1a1a',
+                fontSize:'0.95rem',
                 fontWeight:'600',
                 transition:'all 0.3s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}66, ${client.couleur_secondaire}66)`;
+                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}30, ${client.couleur_secondaire}30)`;
+                e.currentTarget.style.boxShadow = `0 4px 12px ${client.couleur_primaire}30`;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}33, ${client.couleur_secondaire}33)`;
+                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}15, ${client.couleur_secondaire}15)`;
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
               📲 Facebook
@@ -209,22 +217,24 @@ export default function ClientPage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background:`linear-gradient(135deg, ${client.couleur_primaire}33, ${client.couleur_secondaire}33)`,
+                background:`linear-gradient(135deg, ${client.couleur_primaire}15, ${client.couleur_secondaire}15)`,
                 border:`2px solid ${client.couleur_primaire}`,
                 padding:'1rem',
                 borderRadius:'10px',
                 textAlign:'center',
                 textDecoration:'none',
-                color:'var(--blanc)',
-                fontSize:'1rem',
+                color:'#1a1a1a',
+                fontSize:'0.95rem',
                 fontWeight:'600',
                 transition:'all 0.3s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}66, ${client.couleur_secondaire}66)`;
+                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}30, ${client.couleur_secondaire}30)`;
+                e.currentTarget.style.boxShadow = `0 4px 12px ${client.couleur_primaire}30`;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}33, ${client.couleur_secondaire}33)`;
+                e.currentTarget.style.background = `linear-gradient(135deg, ${client.couleur_primaire}15, ${client.couleur_secondaire}15)`;
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
               🎵 TikTok
@@ -234,10 +244,7 @@ export default function ClientPage() {
 
         {/* Catalogue si disponible */}
         {client.catalogue && (
-          <section style={{marginBottom:'3rem'}}>
-            <h2 style={{fontSize:'1.2rem', marginBottom:'1.5rem', textAlign:'center', color:'var(--blanc)'}}>
-              Voir notre catalogue
-            </h2>
+          <section style={{marginBottom:'2rem'}}>
             <a
               href={client.catalogue}
               target="_blank"
@@ -245,40 +252,39 @@ export default function ClientPage() {
               style={{
                 display:'block',
                 background:`linear-gradient(135deg, ${client.couleur_primaire}, ${client.couleur_secondaire})`,
-                color:'var(--noir)',
-                padding:'1.2rem',
+                color:'white',
+                padding:'1.5rem',
                 borderRadius:'12px',
                 textAlign:'center',
                 fontSize:'1.1rem',
                 fontWeight:'700',
                 textDecoration:'none',
                 transition:'all 0.3s ease',
-                boxShadow:`0 4px 15px ${client.couleur_primaire}66`
+                boxShadow:`0 4px 12px ${client.couleur_primaire}40`,
+                border:'none',
+                cursor:'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px)';
-                e.currentTarget.style.boxShadow = `0 8px 25px ${client.couleur_primaire}88`;
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = `0 8px 20px ${client.couleur_primaire}60`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = `0 4px 15px ${client.couleur_primaire}66`;
+                e.currentTarget.style.boxShadow = `0 4px 12px ${client.couleur_primaire}40`;
               }}
             >
-              🛒 Consulter le catalogue complet
+              🛍️ Voir le catalogue complet
             </a>
           </section>
         )}
 
-        {/* Divider */}
-        <hr style={{border:'none', borderTop:`1px solid ${client.couleur_primaire}33`, margin:'3rem 0'}} />
-
         {/* Autres clients */}
         {allClients.length > 1 && (
-          <section style={{textAlign:'center'}}>
-            <h2 style={{fontSize:'1.2rem', marginBottom:'1.5rem', color:'var(--blanc)'}}>
+          <section style={{background:'white', padding:'1.5rem', borderRadius:'12px', boxShadow:'0 2px 8px rgba(0,0,0,0.08)', marginBottom:'2rem'}}>
+            <h2 style={{fontSize:'1.1rem', marginBottom:'1.2rem', textAlign:'center', color:'#1a1a1a', fontWeight:'700'}}>
               Découvrir d'autres clients
             </h2>
-            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(150px, 1fr))', gap:'1rem'}}>
+            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(130px, 1fr))', gap:'0.8rem'}}>
               {allClients
                 .filter(c => c.slug !== slug)
                 .map(c => (
@@ -287,21 +293,23 @@ export default function ClientPage() {
                     href={`/${c.slug}`}
                     style={{
                       textDecoration:'none',
-                      padding:'1rem',
+                      padding:'0.8rem',
                       borderRadius:'10px',
-                      background:`linear-gradient(135deg, ${c.couleur_primaire}22, ${c.couleur_secondaire}22)`,
-                      border:`2px solid ${c.couleur_primaire}33`,
-                      color:'var(--blanc)',
+                      background:`linear-gradient(135deg, ${c.couleur_primaire}12, ${c.couleur_secondaire}12)`,
+                      border:`2px solid ${c.couleur_primaire}`,
+                      color:'#1a1a1a',
                       fontWeight:'600',
-                      transition:'all 0.3s ease'
+                      fontSize:'0.9rem',
+                      transition:'all 0.3s ease',
+                      textAlign:'center'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = c.couleur_primaire;
-                      e.currentTarget.style.background = `linear-gradient(135deg, ${c.couleur_primaire}44, ${c.couleur_secondaire}44)`;
+                      e.currentTarget.style.background = `linear-gradient(135deg, ${c.couleur_primaire}25, ${c.couleur_secondaire}25)`;
+                      e.currentTarget.style.boxShadow = `0 4px 12px ${c.couleur_primaire}25`;
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = `${c.couleur_primaire}33`;
-                      e.currentTarget.style.background = `linear-gradient(135deg, ${c.couleur_primaire}22, ${c.couleur_secondaire}22)`;
+                      e.currentTarget.style.background = `linear-gradient(135deg, ${c.couleur_primaire}12, ${c.couleur_secondaire}12)`;
+                      e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
                     {c.nom}
@@ -312,8 +320,8 @@ export default function ClientPage() {
         )}
 
         {/* Retour */}
-        <div style={{textAlign:'center', marginTop:'3rem'}}>
-          <a href="/clients" style={{color:'var(--bleu-neon)', textDecoration:'none', fontSize:'0.95rem'}}>
+        <div style={{textAlign:'center', marginTop:'2rem', paddingBottom:'1rem'}}>
+          <a href="/clients" style={{color:'#00AEEF', textDecoration:'none', fontSize:'0.95rem', fontWeight:'600'}}>
             ← Retour à la liste des clients
           </a>
         </div>
