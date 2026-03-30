@@ -1,8 +1,8 @@
-// Page Client - Standalone NFC Card - Professionnel & moderne
+// Page Client - Standalone NFC Card - Professionnel & moderne avec couleurs dynamiques
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getClientBySlug } from '../services/supabase';
-import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaPlus, FaShoppingBag } from 'react-icons/fa';
+import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaYoutube, FaLinkedin, FaTwitter, FaPlus, FaShoppingBag } from 'react-icons/fa';
 
 export default function ClientPage() {
   const { slug } = useParams();
@@ -240,126 +240,73 @@ END:VCARD`;
           </a>
         </div>
 
-        {/* Réseaux sociaux - Petits boutons en grille 3 */}
-        {(client.facebook || client.tiktok || client.instagram) && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '1rem',
-            marginBottom: '1.8rem'
-          }}>
-            {client.facebook && (
-              <a
-                href={client.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '1.1rem 0.8rem',
-                  background: '#1877F2',
-                  color: 'white',
-                  textDecoration: 'none',
-                  borderRadius: '14px',
-                  fontWeight: '600',
-                  fontSize: '0.8rem',
-                  transition: 'all 0.2s ease',
-                  border: 'none',
-                  cursor: 'pointer',
-                  flexDirection: 'column',
-                  gap: '0.5rem',
-                  boxShadow: '0 4px 14px rgba(24, 119, 242, 0.35)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(24, 119, 242, 0.5)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(24, 119, 242, 0.35)';
-                }}
-              >
-                <FaFacebook size={28} />
-                <span>Facebook</span>
-              </a>
-            )}
-
-            {client.tiktok && (
-              <a
-                href={client.tiktok}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '1.1rem 0.8rem',
-                  background: '#000000',
-                  color: 'white',
-                  textDecoration: 'none',
-                  borderRadius: '14px',
-                  fontWeight: '600',
-                  fontSize: '0.8rem',
-                  transition: 'all 0.2s ease',
-                  border: 'none',
-                  cursor: 'pointer',
-                  flexDirection: 'column',
-                  gap: '0.5rem',
-                  boxShadow: '0 4px 14px rgba(80, 80, 80, 0.35)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(150, 150, 150, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(80, 80, 80, 0.35)';
-                }}
-              >
-                <FaTiktok size={28} />
-                <span>TikTok</span>
-              </a>
-            )}
-
-            {client.instagram && (
-              <a
-                href={client.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '1.1rem 0.8rem',
-                  background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)',
-                  color: 'white',
-                  textDecoration: 'none',
-                  borderRadius: '14px',
-                  fontWeight: '600',
-                  fontSize: '0.8rem',
-                  transition: 'all 0.2s ease',
-                  border: 'none',
-                  cursor: 'pointer',
-                  flexDirection: 'column',
-                  gap: '0.5rem',
-                  boxShadow: '0 4px 14px rgba(255, 107, 107, 0.35)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 107, 107, 0.5)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(255, 107, 107, 0.35)';
-                }}
-              >
-                <FaInstagram size={28} />
-                <span>Instagram</span>
-              </a>
-            )}
-          </div>
-        )}
+        {/* Réseaux sociaux - Boutons dynamiques en grille */}
+        {(() => {
+          // Créer un tableau des réseaux sociaux disponibles
+          const socialNetworks = [
+            { key: 'facebook', label: 'Facebook', icon: FaFacebook, color: '#1877F2' },
+            { key: 'tiktok', label: 'TikTok', icon: FaTiktok, color: '#000000' },
+            { key: 'instagram', label: 'Instagram', icon: FaInstagram, color: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)' },
+            { key: 'youtube', label: 'YouTube', icon: FaYoutube, color: '#FF0000' },
+            { key: 'linkedin', label: 'LinkedIn', icon: FaLinkedin, color: '#0A66C2' },
+            { key: 'twitter', label: 'Twitter', icon: FaTwitter, color: '#1DA1F2' }
+          ];
+          
+          // Filtrer uniquement ceux qui existent dans client
+          const availableSocials = socialNetworks.filter(social => client[social.key]);
+          
+          if (availableSocials.length === 0) return null;
+          
+          return (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: availableSocials.length <= 2 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: '1rem',
+              marginBottom: '1.8rem'
+            }}>
+              {availableSocials.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.key}
+                    href={client[social.key]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '1.1rem 0.8rem',
+                      background: social.color,
+                      color: 'white',
+                      textDecoration: 'none',
+                      borderRadius: '14px',
+                      fontWeight: '600',
+                      fontSize: '0.8rem',
+                      transition: 'all 0.2s ease',
+                      border: 'none',
+                      cursor: 'pointer',
+                      flexDirection: 'column',
+                      gap: '0.5rem',
+                      boxShadow: `0 4px 14px ${social.color === 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)' ? 'rgba(255, 107, 107, 0.35)' : social.color.includes('rgb') ? social.color.replace(/rgb/g, 'rgba').replace(')', ', 0.35)') : social.color + '59'}`
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = `0 6px 20px ${social.color === 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)' ? 'rgba(255, 107, 107, 0.5)' : social.color.includes('rgb') ? social.color.replace(/rgb/g, 'rgba').replace(')', ', 0.5)') : social.color + '80'}`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = `0 4px 14px ${social.color === 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)' ? 'rgba(255, 107, 107, 0.35)' : social.color.includes('rgb') ? social.color.replace(/rgb/g, 'rgba').replace(')', ', 0.35)') : social.color + '59'}`;
+                    }}
+                  >
+                    <Icon size={28} />
+                    <span>{social.label}</span>
+                  </a>
+                );
+              })}
+            </div>
+          );
+        })()}
 
         {/* Boutons secondaires */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginBottom: '1.8rem' }}>

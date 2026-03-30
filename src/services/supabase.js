@@ -6,61 +6,76 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-k
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Mock clients avec couleurs et descriptions
+// Mock clients avec couleurs (jusqu'à 4), réseaux sociaux dynamiques, et descriptions
 export const mockClients = [
   {
     id: '1',
     slug: 'mamadou',
     nom: 'Taxi Mamadou 🚖',
+    description: 'Service de taxi Dakar - Aéroport - 24h/24',
     whatsapp: '221772641751',
     phone: '221772641751',
     email: 'mamadou@taxi.sn',
+    localisation: 'https://goo.gl/maps/DakarTaxi',
     facebook: 'https://facebook.com/mamadou',
     tiktok: 'https://tiktok.com/@mamadou',
     instagram: 'https://instagram.com/mamadou',
-    localisation: 'https://goo.gl/maps/DakarTaxi',
-    image: 'https://picsum.photos/300/300?random=1',
+    youtube: null,
+    linkedin: null,
+    twitter: null,
+    image_url: 'https://picsum.photos/300/300?random=1',
     logo_url: 'https://picsum.photos/150/150?random=1',
     catalogue: null,
     couleur_primaire: '#FF6B6B',
     couleur_secondaire: '#FFD93D',
-    description: 'Transport Dakar - Aéroport'
+    couleur_3: '#FFC837',
+    couleur_4: '#FF8E53'
   },
   {
     id: '2',
     slug: 'boutique-rama',
     nom: 'Boutique Rama 👗',
+    description: 'Vêtements et accessoires de qualité premium',
     whatsapp: '221775432345',
     phone: '221775432345',
     email: 'rama@boutique.sn',
+    localisation: 'https://goo.gl/maps/BoutiqueMercato',
     facebook: 'https://facebook.com/boutique.rama',
     tiktok: 'https://tiktok.com/@boutique_rama',
     instagram: 'https://instagram.com/boutique_rama',
-    localisation: 'https://goo.gl/maps/BoutiqueMercato',
-    image: 'https://picsum.photos/300/300?random=2',
+    youtube: null,
+    linkedin: null,
+    twitter: null,
+    image_url: 'https://picsum.photos/300/300?random=2',
     logo_url: 'https://picsum.photos/150/150?random=2',
     catalogue: 'https://example.com/catalogue-rama',
     couleur_primaire: '#6C5CE7',
     couleur_secondaire: '#A29BFE',
-    description: 'Boutique de vêtements et accessoires'
+    couleur_3: '#9B8FD9',
+    couleur_4: '#7B6BC2'
   },
   {
     id: '3',
     slug: 'restaurant-thies',
     nom: 'Restaurant Thiès 🍽️',
+    description: 'Cuisine authentique sénégalaise - Ambiance chaleureuse',
     whatsapp: '221776789012',
     phone: '221776789012',
     email: 'contact@restaurant-thies.sn',
+    localisation: 'https://goo.gl/maps/RestaurantThies',
     facebook: 'https://facebook.com/restaurant.thies',
     tiktok: 'https://tiktok.com/@restaurant_thies',
     instagram: 'https://instagram.com/restaurant_thies',
-    localisation: 'https://goo.gl/maps/RestaurantThies',
-    image: 'https://picsum.photos/300/300?random=3',
+    youtube: 'https://youtube.com/@restaurant_thies',
+    linkedin: null,
+    twitter: null,
+    image_url: 'https://picsum.photos/300/300?random=3',
     logo_url: 'https://picsum.photos/150/150?random=3',
     catalogue: 'https://example.com/menu-thies',
     couleur_primaire: '#00B894',
     couleur_secondaire: '#55EFC4',
-    description: 'Restaurant traditionnel avec cuisine authentique'
+    couleur_3: '#2FCC71',
+    couleur_4: '#1ABC9C'
   }
 ];
 
