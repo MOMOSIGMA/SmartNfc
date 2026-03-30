@@ -2,7 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getClientBySlug } from '../services/supabase';
-import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaYoutube, FaLinkedin, FaTwitter, FaPlus, FaShoppingBag } from 'react-icons/fa';
+import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaYoutube, FaLinkedin, FaX, FaPlus, FaShoppingBag } from 'react-icons/fa';
 
 export default function ClientPage() {
   const { slug } = useParams();
@@ -23,16 +23,51 @@ export default function ClientPage() {
     const vcard = `BEGIN:VCARD
 VERSION:3.0
 FN:${client.nom}
-TEL:${client.phone}
+TEL:${client.phone || ''}
 EMAIL:${client.email || ''}
+ORG:${client.nom}
+NOTE:${client.description || ''}
 END:VCARD`;
     
-    const blob = new Blob([vcard], { type: 'text/vcard' });
+    // Déterminer si on est sur mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile && navigator.contacts) {
+      // API Contact Native (si disponible sur le téléphone)
+      try {
+        const contact = new navigator.Contact();
+        contact.displayName = client.nom;
+        contact.nickname = client.nom;
+        contact.note = client.description || '';
+        
+        const phoneNumbers = [new navigator.ContactField('mobile', client.phone || '', true)];
+        contact.phoneNumbers = phoneNumbers;
+        
+        const emails = [new navigator.ContactField('work', client.email || '', false)];
+        contact.emails = emails;
+        
+        contact.save(
+          () => console.log('✅ Contact ajouté avec succès'),
+          (err) => console.error('❌ Erreur ajout contact', err)
+        );
+        return;
+      } catch (err) {
+        console.log('API Contact not available, using vCard fallback');
+      }
+    }
+    
+    // Fallback : créer un blob et déclencher le téléchargement
+    // Sur mobile, ça ouvrira l'app Contacts automatiquement
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${client.slug}.vcf`;
-    a.click();
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${client.slug}-contact.vcf`;
+    link.click();
+    
+    // Nettoyer
+    setTimeout(() => URL.revokeObjectURL(url), 100);
   };
 
   if (loading) {
@@ -136,7 +171,7 @@ END:VCARD`;
 
         {/* Boutons principaux - Gros et dominants avec couleurs dynamiques */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginBottom: '1.8rem' }}>
-          {/* WhatsApp - Couleur 1 */}
+          {/* WhatsApp - Couleur Officielle (#25D366) */}
           <a
             href={`https://wa.me/${client.whatsapp}`}
             target="_blank"
@@ -147,7 +182,40 @@ END:VCARD`;
               justifyContent: 'center',
               gap: '1rem',
               padding: '1.1rem 1.5rem',
-              background: client.couleur_primaire || '#25D366',
+              background: '#25D366',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '16px',
+              fontWeight: '700',
+              fontSize: '1.05rem',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 6px 20px rgba(37, 211, 102, 0.4)',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 8px 28px rgba(37, 211, 102, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.4)';
+            }}
+          >
+            <FaWhatsapp size={22} />
+            <span>WhatsApp</span>
+          </a>
+
+          {/* Appeler - Couleur Primaire du Client */}
+          <a
+            href={`tel:+${client.phone}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '1rem',
+              padding: '1.1rem 1.5rem',
+              background: client.couleur_primaire || '#0066CC',
               color: 'white',
               textDecoration: 'none',
               borderRadius: '16px',
@@ -167,20 +235,22 @@ END:VCARD`;
               e.currentTarget.style.boxShadow = `0 6px 20px ${client.couleur_primaire}66`;
             }}
           >
-            <FaWhatsapp size={22} />
-            <span>WhatsApp</span>
+            <FaPhone size={22} />
+            <span>Appeler</span>
           </a>
 
-          {/* Appeler - Couleur 2 */}
+          {/* Localisation - Couleur Secondaire du Client */}
           <a
-            href={`tel:+${client.phone}`}
+            href={client.localisation}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '1rem',
               padding: '1.1rem 1.5rem',
-              background: client.couleur_secondaire || '#0066CC',
+              background: client.couleur_secondaire || '#DC3545',
               color: 'white',
               textDecoration: 'none',
               borderRadius: '16px',
@@ -200,41 +270,6 @@ END:VCARD`;
               e.currentTarget.style.boxShadow = `0 6px 20px ${client.couleur_secondaire}66`;
             }}
           >
-            <FaPhone size={22} />
-            <span>Appeler</span>
-          </a>
-
-          {/* Localisation - Couleur 3 */}
-          <a
-            href={client.localisation}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '1rem',
-              padding: '1.1rem 1.5rem',
-              background: client.couleur_3 || '#DC3545',
-              color: 'white',
-              textDecoration: 'none',
-              borderRadius: '16px',
-              fontWeight: '700',
-              fontSize: '1.05rem',
-              transition: 'all 0.2s ease',
-              boxShadow: `0 6px 20px ${client.couleur_3 || '#DC3545'}66`,
-              border: 'none',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = `0 8px 28px ${client.couleur_3 || '#DC3545'}99`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = `0 6px 20px ${client.couleur_3 || '#DC3545'}66`;
-            }}
-          >
             <FaMapMarkerAlt size={22} />
             <span>Localisation</span>
           </a>
@@ -249,7 +284,7 @@ END:VCARD`;
             { key: 'instagram', label: 'Instagram', icon: FaInstagram, color: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)' },
             { key: 'youtube', label: 'YouTube', icon: FaYoutube, color: '#FF0000' },
             { key: 'linkedin', label: 'LinkedIn', icon: FaLinkedin, color: '#0A66C2' },
-            { key: 'twitter', label: 'Twitter', icon: FaTwitter, color: '#1DA1F2' }
+            { key: 'twitter', label: 'X', icon: FaX, color: '#000000' }
           ];
           
           // Filtrer uniquement ceux qui existent dans client
