@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getClientBySlug } from '../services/supabase';
 import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaYoutube, FaLinkedin, FaPlus, FaShoppingBag } from 'react-icons/fa';
-import { SiX } from 'react-icons/si';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function ClientPage() {
   const { slug } = useParams();
@@ -285,7 +285,7 @@ END:VCARD`;
             { key: 'instagram', label: 'Instagram', icon: FaInstagram, color: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)' },
             { key: 'youtube', label: 'YouTube', icon: FaYoutube, color: '#FF0000' },
             { key: 'linkedin', label: 'LinkedIn', icon: FaLinkedin, color: '#0A66C2' },
-            { key: 'twitter', label: 'X', icon: FaX, color: '#000000' }
+            { key: 'twitter', label: 'X', icon: FaXTwitter, color: '#000000' }
           ];
           
           // Filtrer uniquement ceux qui existent dans client
