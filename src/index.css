@@ -1,0 +1,270 @@
+/* 2AB Digital Solutions - Modern Startup Style */
+:root {
+  --noir: #0B0B0B;
+  --bleu-fonce: #0A1F44;
+  --bleu-neon: #00AEEF;
+  --blanc: #FFFFFF;
+  --violet: #6C5CE7;
+  --gris: #1a1a2e;
+}
+  /* Palette 2AB */
+  :root {
+    --noir: #0B0B0B;
+    --bleu-fonce: #0A1F44;
+    --bleu-neon: #00AEEF;
+    --blanc: #FFFFFF;
+    --violet: #6C5CE7;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: linear-gradient(135deg, var(--noir) 0%, var(--bleu-fonce) 100%);
+    color: var(--blanc);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, rgba(11, 11, 11, 0.8) 0%, rgba(10, 31, 68, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, var(--bleu-neon), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .nav a {
+    color: var(--blanc);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav a:hover {
+    color: var(--bleu-neon);
+  }
+
+  .nav .whatsapp {
+    background: linear-gradient(135deg, var(--bleu-neon), var(--violet));
+    color: var(--blanc);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 174, 239, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .nav .whatsapp:hover {
+    box-shadow: 0 6px 20px rgba(0, 174, 239, 0.5);
+    transform: translateY(-2px);
+  }
+
+  /* Effet technologie : lignes et glow */
+  .tech-glow {
+    box-shadow: 0 0 24px 2px var(--bleu-neon), 0 0 2px 0 var(--violet);
+  }
+  .tech-line {
+    border-bottom: 2px solid var(--bleu-neon);
+    margin: 2rem 0 1.5rem 0;
+    opacity: 0.2;
+  }
+
+  /* Main */
+  main {
+    padding: 0;
+    margin: 0;
+  }
+
+  section {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Hero Section */
+  section:first-of-type {
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  section:first-of-type::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(108, 92, 231, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  section:first-of-type::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 174, 239, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--blanc), var(--bleu-neon));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 1.5rem 0 1rem;
+    color: var(--blanc);
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0.8rem 0;
+    line-height: 1.7;
+  }
+
+  /* Boutons principaux */
+  .btn-main {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--bleu-neon), var(--violet));
+    color: var(--blanc);
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 174, 239, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 174, 239, 0.5);
+  }
+
+  /* Pour pages clients : fond blanc ou noir simple */
+  .client-page {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 500px;
+  }
+
+  .client-page img {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    border: 2px solid rgba(0, 174, 239, 0.3);
+  }
+
+  /* Gros boutons clients */
+  .client-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin: 0.6rem 0;
+    background: linear-gradient(135deg, rgba(0, 174, 239, 0.2), rgba(108, 92, 231, 0.2));
+    border: 1px solid rgba(0, 174, 239, 0.3);
+    color: var(--blanc);
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .client-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 174, 239, 0.4), rgba(108, 92, 231, 0.4));
+    border-color: var(--bleu-neon);
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 768px) {
+    header {
+      padding: 1rem;
+    }
+
+    .nav {
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    section {
+      padding: 2rem 1rem;
+    }
+  }
+
+
