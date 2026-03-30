@@ -1,8 +1,8 @@
-// Page Client - Standalone NFC Card - Pas de navbar, juste les infos du client
+// Page Client - Standalone NFC Card - Professionnel & moderne
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getClientBySlug, getAllClients } from '../services/supabase';
-import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaEnvelope } from 'react-icons/fa';
+import { getClientBySlug } from '../services/supabase';
+import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaPlus, FaShoppingBag } from 'react-icons/fa';
 
 export default function ClientPage() {
   const { slug } = useParams();
@@ -18,6 +18,23 @@ export default function ClientPage() {
     loadClient();
   }, [slug]);
 
+  const addToContacts = () => {
+    // Créer une vCard pour ajouter le contact
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${client.nom}
+TEL:${client.phone}
+EMAIL:${client.email || ''}
+END:VCARD`;
+    
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${client.slug}.vcf`;
+    a.click();
+  };
+
   if (loading) {
     return (
       <div style={{
@@ -25,10 +42,11 @@ export default function ClientPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#f5f5f5',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
+        background: '#1a1a1a',
+        fontFamily: 'system-ui, -apple-system, sans-serif',
+        color: 'white'
       }}>
-        <div style={{ fontSize: '1.2rem', color: '#666' }}>Chargement...</div>
+        <div style={{ fontSize: '1rem' }}>Chargement...</div>
       </div>
     );
   }
@@ -40,15 +58,15 @@ export default function ClientPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#f5f5f5',
+        background: '#1a1a1a',
         fontFamily: 'system-ui, -apple-system, sans-serif',
+        color: 'white',
         textAlign: 'center'
       }}>
         <div>
-          <div style={{ fontSize: '1.5rem', color: '#333', fontWeight: 'bold', marginBottom: '1rem' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
             Client non trouvé
           </div>
-          <div style={{ color: '#666' }}>Cette page n'existe pas</div>
         </div>
       </div>
     );
@@ -57,368 +75,367 @@ export default function ClientPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f5f5f5',
+      background: '#1a1a1a',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       padding: '1rem',
       fontFamily: 'system-ui, -apple-system, sans-serif'
     }}>
       {/* Container principal */}
       <div style={{
-        maxWidth: '500px',
-        margin: '0 auto',
-        background: 'white',
+        width: '100%',
+        maxWidth: '420px',
+        background: '#222',
         borderRadius: '20px',
-        overflow: 'hidden',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column'
+        padding: '2rem 1.5rem',
+        textAlign: 'center'
       }}>
 
-        {/* Header coloré avec gradient */}
+        {/* Logo en cercle */}
         <div style={{
-          background: `linear-gradient(135deg, ${client.couleur_primaire} 0%, ${client.couleur_secondaire} 100%)`,
-          padding: '4rem 2rem 2rem',
-          textAlign: 'center'
+          width: '120px',
+          height: '120px',
+          borderRadius: '50%',
+          border: '4px solid white',
+          margin: '0 auto 1.5rem',
+          overflow: 'hidden',
+          flexShrink: 0,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.4)'
         }}>
-          {/* Logo */}
           <img
             src={client.logo_url}
             alt={client.nom}
             style={{
-              width: '140px',
-              height: '140px',
-              borderRadius: '20px',
-              objectFit: 'cover',
-              border: '5px solid white',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.25)',
-              marginBottom: '1.5rem'
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
             }}
           />
-
-          {/* Nom du client */}
-          <h1 style={{
-            fontSize: '2.2rem',
-            margin: '0 0 0.5rem 0',
-            fontWeight: '900',
-            color: 'white',
-            textShadow: '0 2px 8px rgba(0,0,0,0.2)',
-            letterSpacing: '-0.5px'
-          }}>
-            {client.nom}
-          </h1>
-
-          {/* Description */}
-          <p style={{
-            fontSize: '1rem',
-            margin: '0',
-            color: 'rgba(255,255,255,0.95)',
-            fontWeight: '500',
-            textShadow: '0 1px 4px rgba(0,0,0,0.15)'
-          }}>
-            {client.description}
-          </p>
         </div>
 
-        {/* Contenu scrollable */}
-        <div style={{ flex: 1, overflow: 'auto', padding: '2rem' }}>
+        {/* Nom et description */}
+        <h1 style={{
+          fontSize: '1.8rem',
+          margin: '0 0 0.3rem 0',
+          color: 'white',
+          fontWeight: '700',
+          letterSpacing: '-0.3px'
+        }}>
+          {client.nom}
+        </h1>
+        <p style={{
+          fontSize: '0.95rem',
+          margin: '0 0 2rem 0',
+          color: '#aaa',
+          fontWeight: '500'
+        }}>
+          {client.description}
+        </p>
 
-          {/* Section Contact - Boutons principaux */}
-          <section style={{ marginBottom: '2.5rem' }}>
-            <h2 style={{
-              fontSize: '1rem',
+        {/* Boutons principaux - Gros et dominants */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '1.5rem' }}>
+          {/* WhatsApp */}
+          <a
+            href={`https://wa.me/${client.whatsapp}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.8rem',
+              padding: '1rem 1.5rem',
+              background: '#25D366',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '12px',
               fontWeight: '700',
-              color: '#333',
-              margin: '0 0 1.5rem 0',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              opacity: 0.7
-            }}>
-              Nous Contacter
-            </h2>
+              fontSize: '1rem',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(37, 211, 102, 0.5)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 211, 102, 0.3)';
+            }}
+          >
+            <FaWhatsapp size={20} />
+            <span>WhatsApp</span>
+          </a>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {/* WhatsApp */}
+          {/* Appeler */}
+          <a
+            href={`tel:+${client.phone}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.8rem',
+              padding: '1rem 1.5rem',
+              background: '#0066CC',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '12px',
+              fontWeight: '700',
+              fontSize: '1rem',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 12px rgba(0, 102, 204, 0.3)',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 102, 204, 0.5)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 102, 204, 0.3)';
+            }}
+          >
+            <FaPhone size={20} />
+            <span>Appeler</span>
+          </a>
+
+          {/* Localisation */}
+          <a
+            href={client.localisation}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.8rem',
+              padding: '1rem 1.5rem',
+              background: '#FF3B30',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '12px',
+              fontWeight: '700',
+              fontSize: '1rem',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 12px rgba(255, 59, 48, 0.3)',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(255, 59, 48, 0.5)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 59, 48, 0.3)';
+            }}
+          >
+            <FaMapMarkerAlt size={20} />
+            <span>Localisation</span>
+          </a>
+        </div>
+
+        {/* Réseaux sociaux - Petits boutons */}
+        {(client.facebook || client.tiktok || client.instagram) && (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '0.8rem',
+            marginBottom: '1.5rem'
+          }}>
+            {client.facebook && (
               <a
-                href={`https://wa.me/${client.whatsapp}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  padding: '1.2rem',
-                  background: '#25D366',
-                  color: 'white',
-                  textDecoration: 'none',
-                  borderRadius: '12px',
-                  fontWeight: '700',
-                  fontSize: '1rem',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(37, 211, 102, 0.5)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 211, 102, 0.3)';
-                }}
-              >
-                <FaWhatsapp size={24} />
-                <span>WhatsApp</span>
-              </a>
-
-              {/* Appel Direct */}
-              <a
-                href={`tel:+${client.phone}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  padding: '1.2rem',
-                  background: client.couleur_primaire,
-                  color: 'white',
-                  textDecoration: 'none',
-                  borderRadius: '12px',
-                  fontWeight: '700',
-                  fontSize: '1rem',
-                  transition: 'all 0.3s ease',
-                  boxShadow: `0 4px 12px ${client.couleur_primaire}40`,
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = `0 8px 24px ${client.couleur_primaire}60`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = `0 4px 12px ${client.couleur_primaire}40`;
-                }}
-              >
-                <FaPhone size={24} />
-                <span>Appel Direct</span>
-              </a>
-
-              {/* localisation */}
-              <a
-                href={client.localisation}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  padding: '1.2rem',
-                  background: client.couleur_secondaire,
-                  color: 'white',
-                  textDecoration: 'none',
-                  borderRadius: '12px',
-                  fontWeight: '700',
-                  fontSize: '1rem',
-                  transition: 'all 0.3s ease',
-                  boxShadow: `0 4px 12px ${client.couleur_secondaire}40`,
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = `0 8px 24px ${client.couleur_secondaire}60`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = `0 4px 12px ${client.couleur_secondaire}40`;
-                }}
-              >
-                <FaMapMarkerAlt size={24} />
-                <span>Localisation</span>
-              </a>
-
-              {/* Email si disponible */}
-              {client.email && (
-                <a
-                  href={`mailto:${client.email}`}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1rem',
-                    padding: '1.2rem',
-                    background: '#EA4335',
-                    color: 'white',
-                    textDecoration: 'none',
-                    borderRadius: '12px',
-                    fontWeight: '700',
-                    fontSize: '1rem',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 12px rgba(234, 67, 53, 0.3)',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(234, 67, 53, 0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(234, 67, 53, 0.3)';
-                  }}
-                >
-                  <FaEnvelope size={24} />
-                  <span>Email</span>
-                </a>
-              )}
-            </div>
-          </section>
-
-          {/* Réseaux sociaux */}
-          {(client.facebook || client.tiktok) && (
-            <section style={{ marginBottom: '2.5rem' }}>
-              <h2 style={{
-                fontSize: '1rem',
-                fontWeight: '700',
-                color: '#333',
-                margin: '0 0 1.5rem 0',
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                opacity: 0.7
-              }}>
-                Suivre
-              </h2>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '1rem'
-              }}>
-                {client.facebook && (
-                  <a
-                    href={client.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.5rem',
-                      padding: '1rem',
-                      background: '#1877F2',
-                      color: 'white',
-                      textDecoration: 'none',
-                      borderRadius: '12px',
-                      fontWeight: '700',
-                      fontSize: '0.95rem',
-                      transition: 'all 0.3s ease',
-                      boxShadow: '0 4px 12px rgba(24, 119, 242, 0.3)',
-                      border: 'none',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-3px)';
-                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(24, 119, 242, 0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(24, 119, 242, 0.3)';
-                    }}
-                  >
-                    <FaFacebook size={20} />
-                    <span>Facebook</span>
-                  </a>
-                )}
-
-                {client.tiktok && (
-                  <a
-                    href={client.tiktok}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.5rem',
-                      padding: '1rem',
-                      background: '#000000',
-                      color: 'white',
-                      textDecoration: 'none',
-                      borderRadius: '12px',
-                      fontWeight: '700',
-                      fontSize: '0.95rem',
-                      transition: 'all 0.3s ease',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                      border: 'none',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-3px)';
-                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
-                    }}
-                  >
-                    <FaTiktok size={20} />
-                    <span>TikTok</span>
-                  </a>
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* Catalogue */}
-          {client.catalogue && (
-            <section style={{ marginBottom: '2.5rem' }}>
-              <a
-                href={client.catalogue}
+                href={client.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.8rem',
-                  padding: '1.3rem',
-                  background: `linear-gradient(135deg, ${client.couleur_primaire}, ${client.couleur_secondaire})`,
+                  padding: '1rem',
+                  background: '#1877F2',
                   color: 'white',
                   textDecoration: 'none',
-                  borderRadius: '12px',
-                  fontWeight: '700',
-                  fontSize: '1.05rem',
-                  transition: 'all 0.3s ease',
-                  boxShadow: `0 6px 20px ${client.couleur_primaire}40`,
+                  borderRadius: '10px',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  transition: 'all 0.2s ease',
                   border: 'none',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  flexDirection: 'column',
+                  gap: '0.3rem'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = `0 10px 30px ${client.couleur_primaire}60`;
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(24, 119, 242, 0.4)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = `0 6px 20px ${client.couleur_primaire}40`;
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                <span>🛍️</span>
-                <span>Voir le Catalogue</span>
+                <FaFacebook size={24} />
+                <span>Facebook</span>
               </a>
-            </section>
+            )}
+
+            {client.tiktok && (
+              <a
+                href={client.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1rem',
+                  background: '#000000',
+                  color: 'white',
+                  textDecoration: 'none',
+                  borderRadius: '10px',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  transition: 'all 0.2s ease',
+                  border: 'none',
+                  cursor: 'pointer',
+                  flexDirection: 'column',
+                  gap: '0.3rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(100, 100, 100, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <FaTiktok size={24} />
+                <span>TikTok</span>
+              </a>
+            )}
+
+            {client.instagram && (
+              <a
+                href={client.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1rem',
+                  background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                  color: 'white',
+                  textDecoration: 'none',
+                  borderRadius: '10px',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  transition: 'all 0.2s ease',
+                  border: 'none',
+                  cursor: 'pointer',
+                  flexDirection: 'column',
+                  gap: '0.3rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(200, 35, 100, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <FaInstagram size={24} />
+                <span>Instagram</span>
+              </a>
+            )}
+          </div>
+        )}
+
+        {/* Boutons secondaires */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '1.5rem' }}>
+          {/* Catalogue */}
+          {client.catalogue && (
+            <a
+              href={client.catalogue}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.6rem',
+                padding: '0.9rem',
+                background: '#333',
+                color: '#ccc',
+                textDecoration: 'none',
+                borderRadius: '10px',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s ease',
+                border: '1px solid #444',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#3a3a3a';
+                e.currentTarget.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#333';
+                e.currentTarget.style.color = '#ccc';
+              }}
+            >
+              <FaShoppingBag size={18} />
+              <span>Voir Catalogue</span>
+            </a>
           )}
+
+          {/* Ajouter au contact */}
+          <button
+            onClick={addToContacts}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.6rem',
+              padding: '0.9rem',
+              background: '#333',
+              color: '#ccc',
+              borderRadius: '10px',
+              fontWeight: '600',
+              fontSize: '0.95rem',
+              transition: 'all 0.2s ease',
+              border: '1px solid #444',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#3a3a3a';
+              e.currentTarget.style.color = 'white';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#333';
+              e.currentTarget.style.color = '#ccc';
+            }}
+          >
+            <FaPlus size={18} />
+            <span>Enregistrer le contact</span>
+          </button>
         </div>
 
-        {/* Footer minimal */}
+        {/* Footer */}
         <div style={{
-          padding: '1.5rem',
-          textAlign: 'center',
-          borderTop: '1px solid #eee',
-          background: '#fafafa',
-          color: '#999',
-          fontSize: '0.85rem',
+          paddingTop: '1rem',
+          borderTop: '1px solid #333',
+          color: '#666',
+          fontSize: '0.8rem',
           fontWeight: '500'
         }}>
-          Powered by SmartNFC
+          Powered by 2AB Digital Solutions
         </div>
       </div>
     </div>
