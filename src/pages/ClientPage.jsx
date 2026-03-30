@@ -134,9 +134,9 @@ END:VCARD`;
           {client.description}
         </p>
 
-        {/* Boutons principaux - Gros et dominants */}
+        {/* Boutons principaux - Gros et dominants avec couleurs dynamiques */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginBottom: '1.8rem' }}>
-          {/* WhatsApp */}
+          {/* WhatsApp - Couleur 1 */}
           <a
             href={`https://wa.me/${client.whatsapp}`}
             target="_blank"
@@ -147,31 +147,31 @@ END:VCARD`;
               justifyContent: 'center',
               gap: '1rem',
               padding: '1.1rem 1.5rem',
-              background: '#25D366',
+              background: client.couleur_primaire || '#25D366',
               color: 'white',
               textDecoration: 'none',
               borderRadius: '16px',
               fontWeight: '700',
               fontSize: '1.05rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 6px 20px rgba(37, 211, 102, 0.4)',
+              boxShadow: `0 6px 20px ${client.couleur_primaire}66`,
               border: 'none',
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 8px 28px rgba(37, 211, 102, 0.6)';
+              e.currentTarget.style.boxShadow = `0 8px 28px ${client.couleur_primaire}99`;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.4)';
+              e.currentTarget.style.boxShadow = `0 6px 20px ${client.couleur_primaire}66`;
             }}
           >
             <FaWhatsapp size={22} />
             <span>WhatsApp</span>
           </a>
 
-          {/* Appeler */}
+          {/* Appeler - Couleur 2 */}
           <a
             href={`tel:+${client.phone}`}
             style={{
@@ -180,31 +180,31 @@ END:VCARD`;
               justifyContent: 'center',
               gap: '1rem',
               padding: '1.1rem 1.5rem',
-              background: '#0066CC',
+              background: client.couleur_secondaire || '#0066CC',
               color: 'white',
               textDecoration: 'none',
               borderRadius: '16px',
               fontWeight: '700',
               fontSize: '1.05rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 6px 20px rgba(0, 102, 204, 0.4)',
+              boxShadow: `0 6px 20px ${client.couleur_secondaire}66`,
               border: 'none',
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 102, 204, 0.6)';
+              e.currentTarget.style.boxShadow = `0 8px 28px ${client.couleur_secondaire}99`;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 102, 204, 0.4)';
+              e.currentTarget.style.boxShadow = `0 6px 20px ${client.couleur_secondaire}66`;
             }}
           >
             <FaPhone size={22} />
             <span>Appeler</span>
           </a>
 
-          {/* Localisation */}
+          {/* Localisation - Couleur 3 */}
           <a
             href={client.localisation}
             target="_blank"
@@ -215,24 +215,24 @@ END:VCARD`;
               justifyContent: 'center',
               gap: '1rem',
               padding: '1.1rem 1.5rem',
-              background: '#DC3545',
+              background: client.couleur_3 || '#DC3545',
               color: 'white',
               textDecoration: 'none',
               borderRadius: '16px',
               fontWeight: '700',
               fontSize: '1.05rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 6px 20px rgba(220, 53, 69, 0.4)',
+              boxShadow: `0 6px 20px ${client.couleur_3 || '#DC3545'}66`,
               border: 'none',
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 8px 28px rgba(220, 53, 69, 0.6)';
+              e.currentTarget.style.boxShadow = `0 8px 28px ${client.couleur_3 || '#DC3545'}99`;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(220, 53, 69, 0.4)';
+              e.currentTarget.style.boxShadow = `0 6px 20px ${client.couleur_3 || '#DC3545'}66`;
             }}
           >
             <FaMapMarkerAlt size={22} />
