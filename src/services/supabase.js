@@ -82,6 +82,8 @@ export const mockClients = [
 // Fonction pour récupérer un client (from Supabase ou mock)
 export async function getClientBySlug(slug) {
   try {
+    console.log('🔍 Récupération client:', slug);
+    
     // Essai avec Supabase d'abord
     const { data, error } = await supabase
       .from('clients')
@@ -89,13 +91,24 @@ export async function getClientBySlug(slug) {
       .eq('slug', slug)
       .single();
 
-    if (error && error.code === 'PGRST116') {
-      // Client non trouvé dans Supabase, utiliser mock
+    if (error) {
+      if (error.code === 'PGRST116') {
+        console.log('❌ Client non trouvé dans Supabase:', slug);
+        return mockClients.find(c => c.slug === slug) || null;
+      }
+      
+      console.error('⚠️ Erreur Supabase:', error.message);
       return mockClients.find(c => c.slug === slug) || null;
     }
 
-    return data;
+    if (data) {
+      console.log('✅ Client récupéré de Supabase:', data);
+      return data;
+    }
+
+    return null;
   } catch (err) {
+    console.error('🔴 Erreur lors de la récupération du client:', err);
     // Si Supabase n'est pas configuré, utiliser mock
     return mockClients.find(c => c.slug === slug) || null;
   }
