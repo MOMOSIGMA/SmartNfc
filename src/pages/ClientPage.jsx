@@ -92,16 +92,16 @@ END:VCARD`;
         textAlign: 'center'
       }}>
 
-        {/* Logo en cercle */}
+        {/* Logo en cercle avec glow */}
         <div style={{
-          width: '120px',
-          height: '120px',
+          width: '130px',
+          height: '130px',
           borderRadius: '50%',
-          border: '4px solid white',
-          margin: '0 auto 1.5rem',
+          border: '5px solid white',
+          margin: '0 auto 1.8rem',
           overflow: 'hidden',
           flexShrink: 0,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.4)'
+          boxShadow: '0 0 30px rgba(100, 200, 255, 0.6), 0 10px 30px rgba(0,0,0,0.5)'
         }}>
           <img
             src={client.logo_url}
@@ -116,25 +116,26 @@ END:VCARD`;
 
         {/* Nom et description */}
         <h1 style={{
-          fontSize: '1.8rem',
+          fontSize: '1.9rem',
           margin: '0 0 0.3rem 0',
-          color: 'white',
-          fontWeight: '700',
-          letterSpacing: '-0.3px'
+          color: '#ffffff',
+          fontWeight: '800',
+          letterSpacing: '-0.5px'
         }}>
           {client.nom}
         </h1>
         <p style={{
           fontSize: '0.95rem',
-          margin: '0 0 2rem 0',
-          color: '#aaa',
-          fontWeight: '500'
+          margin: '0 0 2.2rem 0',
+          color: '#b0b0b0',
+          fontWeight: '500',
+          lineHeight: '1.4'
         }}>
           {client.description}
         </p>
 
         {/* Boutons principaux - Gros et dominants */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginBottom: '1.8rem' }}>
           {/* WhatsApp */}
           <a
             href={`https://wa.me/${client.whatsapp}`}
@@ -144,29 +145,29 @@ END:VCARD`;
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.8rem',
-              padding: '1rem 1.5rem',
+              gap: '1rem',
+              padding: '1.1rem 1.5rem',
               background: '#25D366',
               color: 'white',
               textDecoration: 'none',
-              borderRadius: '12px',
+              borderRadius: '16px',
               fontWeight: '700',
-              fontSize: '1rem',
+              fontSize: '1.05rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)',
+              boxShadow: '0 6px 20px rgba(37, 211, 102, 0.4)',
               border: 'none',
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 6px 16px rgba(37, 211, 102, 0.5)';
+              e.currentTarget.style.boxShadow = '0 8px 28px rgba(37, 211, 102, 0.6)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 211, 102, 0.3)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.4)';
             }}
           >
-            <FaWhatsapp size={20} />
+            <FaWhatsapp size={22} />
             <span>WhatsApp</span>
           </a>
 
@@ -177,29 +178,29 @@ END:VCARD`;
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.8rem',
-              padding: '1rem 1.5rem',
+              gap: '1rem',
+              padding: '1.1rem 1.5rem',
               background: '#0066CC',
               color: 'white',
               textDecoration: 'none',
-              borderRadius: '12px',
+              borderRadius: '16px',
               fontWeight: '700',
-              fontSize: '1rem',
+              fontSize: '1.05rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 4px 12px rgba(0, 102, 204, 0.3)',
+              boxShadow: '0 6px 20px rgba(0, 102, 204, 0.4)',
               border: 'none',
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 102, 204, 0.5)';
+              e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 102, 204, 0.6)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 102, 204, 0.3)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 102, 204, 0.4)';
             }}
           >
-            <FaPhone size={20} />
+            <FaPhone size={22} />
             <span>Appeler</span>
           </a>
 
@@ -212,40 +213,40 @@ END:VCARD`;
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.8rem',
-              padding: '1rem 1.5rem',
-              background: '#FF3B30',
+              gap: '1rem',
+              padding: '1.1rem 1.5rem',
+              background: '#DC3545',
               color: 'white',
               textDecoration: 'none',
-              borderRadius: '12px',
+              borderRadius: '16px',
               fontWeight: '700',
-              fontSize: '1rem',
+              fontSize: '1.05rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 4px 12px rgba(255, 59, 48, 0.3)',
+              boxShadow: '0 6px 20px rgba(220, 53, 69, 0.4)',
               border: 'none',
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 6px 16px rgba(255, 59, 48, 0.5)';
+              e.currentTarget.style.boxShadow = '0 8px 28px rgba(220, 53, 69, 0.6)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 59, 48, 0.3)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(220, 53, 69, 0.4)';
             }}
           >
-            <FaMapMarkerAlt size={20} />
+            <FaMapMarkerAlt size={22} />
             <span>Localisation</span>
           </a>
         </div>
 
-        {/* Réseaux sociaux - Petits boutons */}
+        {/* Réseaux sociaux - Petits boutons en grille 3 */}
         {(client.facebook || client.tiktok || client.instagram) && (
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '0.8rem',
-            marginBottom: '1.5rem'
+            gap: '1rem',
+            marginBottom: '1.8rem'
           }}>
             {client.facebook && (
               <a
@@ -256,29 +257,30 @@ END:VCARD`;
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '1rem',
+                  padding: '1.1rem 0.8rem',
                   background: '#1877F2',
                   color: 'white',
                   textDecoration: 'none',
-                  borderRadius: '10px',
+                  borderRadius: '14px',
                   fontWeight: '600',
-                  fontSize: '0.85rem',
+                  fontSize: '0.8rem',
                   transition: 'all 0.2s ease',
                   border: 'none',
                   cursor: 'pointer',
                   flexDirection: 'column',
-                  gap: '0.3rem'
+                  gap: '0.5rem',
+                  boxShadow: '0 4px 14px rgba(24, 119, 242, 0.35)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(24, 119, 242, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(24, 119, 242, 0.5)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(24, 119, 242, 0.35)';
                 }}
               >
-                <FaFacebook size={24} />
+                <FaFacebook size={28} />
                 <span>Facebook</span>
               </a>
             )}
@@ -292,29 +294,30 @@ END:VCARD`;
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '1rem',
+                  padding: '1.1rem 0.8rem',
                   background: '#000000',
                   color: 'white',
                   textDecoration: 'none',
-                  borderRadius: '10px',
+                  borderRadius: '14px',
                   fontWeight: '600',
-                  fontSize: '0.85rem',
+                  fontSize: '0.8rem',
                   transition: 'all 0.2s ease',
                   border: 'none',
                   cursor: 'pointer',
                   flexDirection: 'column',
-                  gap: '0.3rem'
+                  gap: '0.5rem',
+                  boxShadow: '0 4px 14px rgba(80, 80, 80, 0.35)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(100, 100, 100, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(150, 150, 150, 0.4)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(80, 80, 80, 0.35)';
                 }}
               >
-                <FaTiktok size={24} />
+                <FaTiktok size={28} />
                 <span>TikTok</span>
               </a>
             )}
@@ -328,29 +331,30 @@ END:VCARD`;
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '1rem',
-                  background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                  padding: '1.1rem 0.8rem',
+                  background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 25%, #FFC837 50%, #639FFF 100%)',
                   color: 'white',
                   textDecoration: 'none',
-                  borderRadius: '10px',
+                  borderRadius: '14px',
                   fontWeight: '600',
-                  fontSize: '0.85rem',
+                  fontSize: '0.8rem',
                   transition: 'all 0.2s ease',
                   border: 'none',
                   cursor: 'pointer',
                   flexDirection: 'column',
-                  gap: '0.3rem'
+                  gap: '0.5rem',
+                  boxShadow: '0 4px 14px rgba(255, 107, 107, 0.35)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(200, 35, 100, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 107, 107, 0.5)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(255, 107, 107, 0.35)';
                 }}
               >
-                <FaInstagram size={24} />
+                <FaInstagram size={28} />
                 <span>Instagram</span>
               </a>
             )}
@@ -358,7 +362,7 @@ END:VCARD`;
         )}
 
         {/* Boutons secondaires */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginBottom: '1.8rem' }}>
           {/* Catalogue */}
           {client.catalogue && (
             <a
@@ -369,16 +373,16 @@ END:VCARD`;
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '0.6rem',
-                padding: '0.9rem',
-                background: '#333',
-                color: '#ccc',
+                gap: '0.8rem',
+                padding: '1rem',
+                background: '#333333',
+                color: '#e0e0e0',
                 textDecoration: 'none',
-                borderRadius: '10px',
+                borderRadius: '14px',
                 fontWeight: '600',
-                fontSize: '0.95rem',
+                fontSize: '1rem',
                 transition: 'all 0.2s ease',
-                border: '1px solid #444',
+                border: '1px solid #444444',
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
@@ -386,11 +390,11 @@ END:VCARD`;
                 e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#333';
-                e.currentTarget.style.color = '#ccc';
+                e.currentTarget.style.background = '#333333';
+                e.currentTarget.style.color = '#e0e0e0';
               }}
             >
-              <FaShoppingBag size={18} />
+              <FaShoppingBag size={20} />
               <span>Voir Catalogue</span>
             </a>
           )}
@@ -402,27 +406,27 @@ END:VCARD`;
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.6rem',
-              padding: '0.9rem',
-              background: '#333',
-              color: '#ccc',
-              borderRadius: '10px',
+              gap: '0.8rem',
+              padding: '1rem',
+              background: '#3a3a4a',
+              color: '#e0e0e0',
+              borderRadius: '14px',
               fontWeight: '600',
-              fontSize: '0.95rem',
+              fontSize: '1rem',
               transition: 'all 0.2s ease',
-              border: '1px solid #444',
+              border: '1px solid #4a4a5a',
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#3a3a3a';
+              e.currentTarget.style.background = '#424252';
               e.currentTarget.style.color = 'white';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#333';
-              e.currentTarget.style.color = '#ccc';
+              e.currentTarget.style.background = '#3a3a4a';
+              e.currentTarget.style.color = '#e0e0e0';
             }}
           >
-            <FaPlus size={18} />
+            <FaPlus size={20} />
             <span>Enregistrer le contact</span>
           </button>
         </div>

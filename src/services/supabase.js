@@ -17,13 +17,14 @@ export const mockClients = [
     email: 'mamadou@taxi.sn',
     facebook: 'https://facebook.com/mamadou',
     tiktok: 'https://tiktok.com/@mamadou',
+    instagram: 'https://instagram.com/mamadou',
     localisation: 'https://goo.gl/maps/DakarTaxi',
     image: 'https://picsum.photos/300/300?random=1',
     logo_url: 'https://picsum.photos/150/150?random=1',
     catalogue: null,
     couleur_primaire: '#FF6B6B',
     couleur_secondaire: '#FFD93D',
-    description: 'Service de taxi fiable et rapide à Dakar'
+    description: 'Transport Dakar - Aéroport'
   },
   {
     id: '2',
@@ -34,13 +35,14 @@ export const mockClients = [
     email: 'rama@boutique.sn',
     facebook: 'https://facebook.com/boutique.rama',
     tiktok: 'https://tiktok.com/@boutique_rama',
+    instagram: 'https://instagram.com/boutique_rama',
     localisation: 'https://goo.gl/maps/BoutiqueMercato',
     image: 'https://picsum.photos/300/300?random=2',
     logo_url: 'https://picsum.photos/150/150?random=2',
     catalogue: 'https://example.com/catalogue-rama',
     couleur_primaire: '#6C5CE7',
     couleur_secondaire: '#A29BFE',
-    description: 'Boutique de vêtements et accessoires tendance'
+    description: 'Boutique de vêtements et accessoires'
   },
   {
     id: '3',
@@ -51,6 +53,7 @@ export const mockClients = [
     email: 'contact@restaurant-thies.sn',
     facebook: 'https://facebook.com/restaurant.thies',
     tiktok: 'https://tiktok.com/@restaurant_thies',
+    instagram: 'https://instagram.com/restaurant_thies',
     localisation: 'https://goo.gl/maps/RestaurantThies',
     image: 'https://picsum.photos/300/300?random=3',
     logo_url: 'https://picsum.photos/150/150?random=3',

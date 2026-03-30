@@ -43,7 +43,7 @@ export default function Clients() {
             {clients.map(client => (
               <a
                 key={client.slug}
-                href={`/${client.slug}`}
+                href={`/p/${client.slug}`}
                 style={{
                   textDecoration:'none',
                   background:'linear-gradient(135deg, rgba(0, 174, 239, 0.05), rgba(108, 92, 231, 0.05))',
