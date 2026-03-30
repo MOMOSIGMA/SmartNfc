@@ -2,7 +2,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getClientBySlug } from '../services/supabase';
-import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaYoutube, FaLinkedin, FaX, FaPlus, FaShoppingBag } from 'react-icons/fa';
+import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaFacebook, FaTiktok, FaInstagram, FaYoutube, FaLinkedin, FaPlus, FaShoppingBag } from 'react-icons/fa';
+import { SiX } from 'react-icons/si';
 
 export default function ClientPage() {
   const { slug } = useParams();
